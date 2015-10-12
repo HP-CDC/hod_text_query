@@ -28,6 +28,8 @@ twitterClient.stream('statuses/filter', {track: 'coffee'}, function(stream) {
       var score = resp.body.aggregate.score
       console.log("------------------------------")
       console.log(tweet.text + " | " + sentiment + " | " + score)
+      var tweetData = {text: tweet.text, positive: resp.body.positive, negative: resp.body.negative, aggregate: resp.body.aggregate}
+      io.emit('tweetData', tweetData)
     })
   });
 

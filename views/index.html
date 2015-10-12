@@ -1,1 +1,14 @@
+<!doctype html>
+<html>
 <h1>A dashboard will be here soon!</h1>
+<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+<script>
+$(document).ready(function() {
+  var socket = io();
+  socket.on('tweetData', function(msg){
+    console.log(msg);
+  });
+})
+</script>
+</html>
