@@ -1,14 +1,71 @@
 <!doctype html>
 <html>
-<h1>A dashboard will be here soon!</h1>
+<head>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+<style>
+body {
+  background-color: #2F69C6;
+  font-size: 18px;
+  padding-top: 20px;
+}
+.bottom-border {
+  border-radius: 0px;
+  border-bottom: 2px solid #000000;
+}
+input {
+    width: 33%;
+}
+</style>
+</head>
+<body>
 <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
 <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+<!--  -->
+<div class="row">
+  <form>
+  <div class="col-xs-6 text-right">
+    <input type="text" name="stream" id="stream0">
+  </div>
+  </form>
+  <div class="col-xs-6 text-left">
+    <button type="button" class="btn" onclick="buttonClick()">Submit</button>
+  </div>
+</div>
+<br />
+<div class="row">
+  <div class="col-xs-6 text-center">
+    <h2>Average Sentiment</h2>
+  </div>
+  <div class="col-xs-6 text-center" id="average-side">
+    <div id="average-score">N/A</div>
+  </div>
+</div>
+<br />
+<div class="row">
+  <div class="col-xs-10 col-xs-offset-1 text-center bottom-border" id="instantaneous-side">
+    <h2>Instantaneous Sentiment</h2>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-10 col-xs-offset-1 messages">
+  </div>
+</div>
+<!--  -->
+
+
 <script>
-$(document).ready(function() {
+// $(document).ready(function() {
   var socket = io();
   socket.on('tweetData', function(msg){
     console.log(msg);
   });
-})
+
+  function buttonClick() {
+    var topicValue = document.getElementById('stream0').value;
+    socket.emit('streamTopic',{topic: topicValue});
+  }
+// })
 </script>
+</body>
 </html>
